@@ -8,8 +8,10 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
+  profile = "puppetlabs-lms"
   region  = "ap-southeast-2"
+
+
 }
 
 resource "aws_instance" "app_server" {
@@ -17,7 +19,7 @@ resource "aws_instance" "app_server" {
   instance_type = "t2.medium"
 
   tags = {
-    Name = "ubuntu18-simon"
+    Name     = "ubuntu18-simon"
     lifetime = "3d"
   }
 }

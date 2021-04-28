@@ -1,9 +1,13 @@
-Deploying a Microservice Application to Kubernetes
-Introduction
+# Deploying a Microservice Application to Kubernetes
+
+## Introduction
+
 Microservice applications can be quite complex but that complexity can offer many benefits. Kubernetes can help you take advantage of those benefits by making these complex infrastructures easier to manage through automation. In this hands-on lab, you will see the value of Kubernetes firsthand as you deploy a complex microservice architecture to the cluster and then independently scale some of its components.
 
-Solution
+### Solution
+
 Begin by logging in to the lab server using the credentials provided on the hands-on lab page:
+
 
 ssh cloud_user@PUBLIC_IP_ADDRESS
 Deploy the Stan's Robot Shop app to the cluster

@@ -1,8 +1,10 @@
-Deploying a Simple Service to Kubernetes
-Introduction
+# Deploying a Simple Service to Kubernetes
+
+## Introduction
+
 Deployments and services are at the core of what makes Kubernetes a great way to manage complex application infrastructures. In this hands-on lab, you will have an opportunity to get hands-on with a Kubernetes cluster and build a simple deployment, coupled with a service providing access to it. You will create a deployment and a service which can be accessed by other pods in the cluster.
 
-Solution
+*Solution*
 Begin by logging in to the Kubernetes Master server using the credentials provided on the hands-on lab page:
 
 ssh cloud_user@PUBLIC_IP_ADDRESS
@@ -10,6 +12,7 @@ Create a deployment for the store-products service with four replicas
 Log in to the Kube master node.
 Create the deployment with four replicas:
 
+```yaml
 cat << EOF | kubectl apply -f -
 apiVersion: apps/v1
 kind: Deployment
@@ -33,9 +36,12 @@ spec:
         ports:
         - containerPort: 80
 EOF
+```
+
 Create a store-products service and verify that you can access it from the busybox testing pod
 Create a service for the store-products pods:
 
+```yaml
 cat << EOF | kubectl apply -f -
 kind: Service
 apiVersion: v1
@@ -49,6 +55,8 @@ spec:
     port: 80
     targetPort: 80
 EOF
+```
+
 Make sure the service is up in the cluster:
 
 kubectl get svc store-products
@@ -58,5 +66,6 @@ NAME             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 store-products   ClusterIP   10.104.11.230   <none>        80/TCP    59s
 Use kubectl exec to query the store-products service from the busybox testing pod.
 
+```shell
 kubectl exec busybox -- curl -s store-products
-Conclusion
+```

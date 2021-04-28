@@ -1,0 +1,73 @@
+Upgrading the Kubernetes Cluster Using kubeadm
+We have been given a three-node cluster that is in need of an upgrade. In this hands-on lab, we must perform the upgrade to all of the cluster components, including kubeadm, kube-controller-manager, kube-scheduler, kubeadm, and kubectl.
+
+Solution
+Log in to the master node server using the credentials provided:
+
+ssh cloud_user@<KUBEMASTER_PUBLIC_IP_ADDRESS>
+Log into the other nodes as well, in different terminals.
+
+Install Version 1.18.5 of kubeadm
+On the master node, check the current version of kubeadm, then check for the Client Version and Server Version:
+
+[master ]$ kubectl get nodes
+[master ]$ kubectl version --short
+Take the hold off of kubeadm and kubelet:
+
+[master ]$ sudo apt-mark unhold kubeadm kubelet
+Install them using the package manager:
+
+[master ]$ sudo apt install -y kubeadm=1.18.5-00
+Check the version again (which should show v1.18.5):
+
+[master ]$ kubeadm version
+Plan the upgrade to check for errors:
+
+[master ]$ sudo kubeadm upgrade plan
+Apply the upgrade of the kube-scheduler and kube-controller-manager:
+
+[master ]$ sudo kubeadm upgrade apply v1.18.5
+Enter y at the prompt.
+
+Look at what version our nodes are at:
+
+[master ]$ kubectl get nodes
+Install the Latest Version of kubelet on the Master Node
+Make sure the kubelet package isn't on hold:
+
+[master ]$ sudo apt-mark unhold kubelet
+Install the latest version of kubelet:
+
+[master ]$ sudo apt install -y kubelet=1.18.5-00
+Verify that the installation was successful:
+
+[master ]$ kubectl get nodes
+This should show that the master node is on v1.18.5, but the two worker nodes are still at v1.17.8. If we run kubectl version --short again, we'll see that the Server Version is v1.18.5, and the Client Version is at v1.17.8.
+
+Install the Latest Version of kubectl on the Master Node
+Make sure the kubectl package isn't on hold:
+
+[master ]$ sudo apt-mark unhold kubectl
+Install the latest version of kubectl:
+
+[master ]$ sudo apt install -y kubectl=1.18.5-00
+Verify that the installation was successful:
+
+[master ]$ kubectl version --short
+Install the Newer Version of kubelet on the Worker Nodes
+On Worker 1
+Make sure the kubelet package isn't on hold:
+
+[worker1 ]$ sudo apt-mark unhold kubelet
+Install the latest version of kubelet:
+
+[worker1 ]$ sudo apt install -y kubelet=1.18.5-00
+On Worker 0
+Make sure the kubelet package isn't on hold:
+
+[worker0 ]$ sudo apt-mark unhold kubelet
+Install the latest version of kubelet:
+
+[worker0 ]$ sudo apt install -y kubelet=1.18.5-00
+Conclusion
+You've now successfully updated this Kubernetes cluster. Congratulations on completing this la

@@ -54,6 +54,12 @@ variable "dns_project_id" {
   default     = "sa-demo-303011"
 }
 
+
+variable "workers" {
+  description = "number of worker pods"
+  default     = "2"
+}
+
 variable "project_apis" {
   description = "List of APIs to enable."
   type        = list(string)

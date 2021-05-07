@@ -31,5 +31,5 @@ resource "google_project_service" "project_api" {
   project                    = local.temp_project_id
   service                    = local.services[count.index]
   disable_dependent_services = true
-  depends_on                 = [google_project.demo_environment]
+  depends_on                 = [google_project.k8s_test_environment]
 }

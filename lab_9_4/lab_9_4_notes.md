@@ -1,10 +1,5 @@
-15
-15
-00:04
-/
-01:42
-video 1 of 2
-Introduction
+# Introduction
+
 This video introduces the scenario for the learning activity. It also provides additional information that can help you complete it.
 Bootstrapping Kubernetes Worker Nodes
 Introduction
@@ -16,7 +11,7 @@ Your team wants to set up a new Kubernetes cluster. Control nodes have already b
 To start, open two terminal windows and log in to both worker servers using the public IPs and credentials listed on the lab page. Note: We're going to run all the commands on both servers simultaneously throughout the entire lab.
 Install the Required Packages
 
-Install the packages on both worker nodes:
+## Install the packages on both worker nodes:
 
 sudo apt-get -y install socat conntrack ipset
 

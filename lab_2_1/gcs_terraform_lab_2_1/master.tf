@@ -44,14 +44,19 @@ resource "google_compute_instance" "k8s" {
       private_key = file(var.gcp_user_private_ssh_key)
     }
     inline = [
+      "sudo apt-get clean",
+      "sudo rm -rf /var/lib/apt/lists",
+      "sudo mkdir /var/lib/apt/lists",
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
       "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"",
+      "sudo apt-get clean",
       "sudo apt-get update",
       "sudo apt-get install -y docker-ce=18.06.1~ce~3-0~ubuntu",
       "sudo apt-mark hold docker-ce",
-      "sudo systemctl status docker"
+      "sudo systemctl status docker --no-pager"
     ]
   }
 
 
 }
+

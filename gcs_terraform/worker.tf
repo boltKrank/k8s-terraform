@@ -15,7 +15,7 @@ resource "google_dns_record_set" "worker-pod-dns" {
   project      = var.dns_project_id
   name         = "worker-${count.index + 1}.${local.domain}."
   managed_zone = var.managed_zone_name
-  rrdatas      = [google_compute_instance.worker-[count.index].network_interface[0].access_config[0].nat_ip]
+  rrdatas      = [google_compute_instance.worker[count.index].network_interface[0].access_config[0].nat_ip]
   ttl          = "300"
   type         = "A"
 }

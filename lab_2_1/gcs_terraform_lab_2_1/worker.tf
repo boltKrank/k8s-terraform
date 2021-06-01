@@ -45,4 +45,26 @@ resource "google_compute_instance" "worker" {
     "sshKeys"        = "${var.gcp_user}:${file("~/.ssh/google.pub")}"
     "enable-oslogin" = false
   }
+
+  provisioner "remote-exec" {
+    connection {
+      host        = self.network_interface[0].access_config[0].nat_ip
+      type        = "ssh"
+      user        = var.gcp_user
+      timeout     = "500s"
+      private_key = file(var.gcp_user_private_ssh_key)
+    }
+    inline = [
+      "sudo apt-get clean",
+      "sudo rm -rf /var/lib/apt/lists",
+      "sudo mkdir /var/lib/apt/lists",
+      "sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release",
+      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
+      "echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
+      "sudo apt-get update",
+      "sudo apt-get install -y docker-ce=18.06.1~ce~3-0~ubuntu",
+      "sudo apt-mark hold docker-ce",
+      "sudo systemctl status docker --no-pager"
+    ]
+  }
 }

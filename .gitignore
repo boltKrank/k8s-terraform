@@ -38,3 +38,4 @@ assume-role.txt
 get-session.txt
 test.bat
 .terraform.lock.hcl
+.DS_Store

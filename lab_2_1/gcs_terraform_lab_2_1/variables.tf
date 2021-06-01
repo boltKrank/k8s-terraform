@@ -4,8 +4,8 @@ variable "project_name" {
 
 variable "credentials_file_path" {
   description = "Service account key path default to ADC path"
-  #default =  "~/.config/gcloud/application_default_credentials.json"
-  default     = "C:\\Users\\Tom\\AppData\\Roaming\\gcloud\\application_default_credentials.json"
+  default =  "~/.config/gcloud/application_default_credentials.json"
+  #default     = "C:\\Users\\Tom\\AppData\\Roaming\\gcloud\\application_default_credentials.json"
 }
 
 variable "project_id" {

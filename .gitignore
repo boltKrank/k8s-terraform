@@ -37,4 +37,4 @@ poweruser.bat
 assume-role.txt
 get-session.txt
 test.bat
-.terraform.locl.hcl
+.terraform.lock.hcl

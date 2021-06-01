@@ -1,26 +1,41 @@
-Creating a Kubernetes Cluster
-Introduction
+# Creating a Kubernetes Cluster
+
+## Introduction
+
 In this hands-on lab, we will install and configure a Kubernetes cluster consisting of 1 master and 2 nodes. Once the installation and configuration are complete, we will have a 3-node Kubernetes cluster that uses Flannel as the network overlay.
 
-Logging In
+## Logging In
 Use the credentials provided on the hands-on lab overview page to log into the master and server nodes as cloud_user. It's probably a good idea to have three terminals open, one for each node.
 
-Install Docker and Kubernetes on All Servers
+## Install Docker and Kubernetes on All Servers
 Most of these commands need to be run on each of the nodes. Pay attention though. Down at Step 10, we are going to do a little bit on just the master, and down at Step 15 we'll run something on just the nodes. There are notes down there, just be watching for them.
 
 Once we have logged in, we need to elevate privileges using sudo:
-sudo su  
-Disable SELinux:
+```shell
+sudo su 
+```
+
+## Disable SELinux:
+
+```shell
 setenforce 0
 sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+```
+
 Enable the br_netfilter module for cluster communication:
+```shell
 modprobe br_netfilter
 echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
-Ensure that the Docker dependencies are satisfied:
+```
+## Ensure that the Docker dependencies are satisfied:
+```shell
 yum install -y yum-utils device-mapper-persistent-data lvm2
-Add the Docker repo and install Docker:
+```
+## Add the Docker repo and install Docker:
+```shell
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install -y docker-ce
+```
 Set the cgroup driver for Docker to systemd, reload systemd, then enable and start Docker:
 sed -i '/^ExecStart/ s/$/ --exec-opt native.cgroupdriver=systemd/' /usr/lib/systemd/system/docker.service
 systemctl daemon-reload

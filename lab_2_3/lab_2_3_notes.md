@@ -8,36 +8,53 @@ Microservice applications can be quite complex but that complexity can offer man
 
 Begin by logging in to the lab server using the credentials provided on the hands-on lab page:
 
-
+```shell
 ssh cloud_user@PUBLIC_IP_ADDRESS
+```
+
 Deploy the Stan's Robot Shop app to the cluster
 Clone the Git repo that contains the pre-made descriptors:
 
+```shell
 cd ~/
 git clone https://github.com/linuxacademy/robot-shop.git
+```
 Since this application has many components, it is a good idea to create a separate namespace for the app:
 
+```shell
 kubectl create namespace robot-shop
+```
 Deploy the app to the cluster:
 
+```shell
 kubectl -n robot-shop create -f ~/robot-shop/K8s/descriptors/
+```
+
 Check the status of the application's pods:
 
+```shell
 kubectl get pods -n robot-shop
+```
+
 You should be able to reach the robot shop app from your browser using the Kube master node's public IP:
-http://$kube_master_public_ip:30080
+
+*http://$kube_master_public_ip:30080*
 
 Scale up the MongoDB deployment to two replicas instead of just one
 Edit the deployment descriptor:
 
+```shell
 kubectl edit deployment mongodb -n robot-shop
+```
+
 You should see some YAML describing the deployment object.
 
 Under spec:, look for the line that says replicas: 1 and change it to replicas: 2.
 Save and exit.
 Check the status of the deployment with:
 
+```shell
 kubectl get deployment mongodb -n robot-shop
-After a few moments, the number of available replicas should be 2.
+```
 
-Conclusion
+After a few moments, the number of available replicas should be 2.

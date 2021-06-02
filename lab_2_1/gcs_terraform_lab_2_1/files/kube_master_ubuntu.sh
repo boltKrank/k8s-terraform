@@ -18,3 +18,4 @@ sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
 # check k8s version:
 kubectl version
 
+# Check https://gist.github.com/irvingpop/968464132ded25a206ced835d50afa6b  for external data sources

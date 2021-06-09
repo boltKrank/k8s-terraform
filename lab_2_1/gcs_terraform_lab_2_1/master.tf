@@ -56,6 +56,7 @@ resource "google_compute_instance" "k8s" {
       private_key = file(var.gcp_user_private_ssh_key)
     }
     inline = [
+      #Docker CE install
       "sudo apt-get clean",
       "sudo rm -rf /var/lib/apt/lists",
       "sudo mkdir /var/lib/apt/lists",
@@ -65,7 +66,19 @@ resource "google_compute_instance" "k8s" {
       "sudo apt-get update",
       "sudo apt-get install -y docker-ce=18.06.1~ce~3-0~ubuntu",
       "sudo apt-mark hold docker-ce",
-      "sudo systemctl status docker --no-pager"
+      "sudo systemctl status docker --no-pager",
+      #k8s install
+      "curl -fsSL  https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/google-archive-keyring.gpg",
+      "echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/google-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main\" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null",
+      "sudo apt-get update",
+      "sudo apt-get install -y kubelet=1.14.5-00 kubeadm=1.14.5-00 kubectl=1.14.5-00",
+      "sudo apt-mark hold kubelet kubeadm kubectl",
+      "sudo kubeadm init --pod-network-cidr=10.244.0.0/16",
+      "mkdir -p $HOME/.kube",
+      "sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config",
+      "sudo chown $(id -u):$(id -g) $HOME/.kube/config",
+      #Need to export the kubeadm join command to the workers
+      "kubectl version"
     ]
   }
 

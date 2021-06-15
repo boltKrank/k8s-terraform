@@ -85,3 +85,21 @@ resource "google_compute_instance" "k8s" {
 
 }
 
+# NOTES: Exporting master info for kubeadmin join.
+
+# google_compute_instance.k8s (remote-exec):   mkdir -p $HOME/.kube
+# google_compute_instance.k8s (remote-exec):   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# google_compute_instance.k8s (remote-exec):   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# google_compute_instance.k8s (remote-exec): You should now deploy a pod network to the cluster.
+# google_compute_instance.k8s (remote-exec): Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+# google_compute_instance.k8s (remote-exec):   https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+# google_compute_instance.k8s (remote-exec): Then you can join any number of worker nodes by running the following on each as root:
+
+# google_compute_instance.k8s (remote-exec): kubeadm join 10.152.0.2:6443 --token 1lh5pd.q61rq0ca4uqn1f7t \
+# google_compute_instance.k8s (remote-exec):     --discovery-token-ca-cert-hash sha256:0d99b45b4b953d509aab7785f55d238a4ffa657e91d7486a855683ae5266c3bb
+# google_compute_instance.k8s: Still creating... [2m50s elapsed]
+# google_compute_instance.k8s: Creation complete after 2m50s [id=projects/sa-demo-303011-feab/zones/australia-southeast1-b/instances/k8s]
+# google_dns_record_set.frontend-test: Creating...
+# google_dns_record_set.frontend-test: Creation complete after 1s [id=projects/sa-demo-303011/managedZones/boltkrank-zone/rrsets/k8s.gcp.boltkrank.com./A]
